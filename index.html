@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Weather Detector</title>
+    </head>
+    <body>
+
+        <img src="#" alt="" />
+        <script>
+            let search = document.createElement('input');
+            search.placeholder = "Search";
+            let enter = document.createElement("button");
+            enter.innerText = 'GO';
+            let weatherData = document.createElement("div");
+            weatherData.style.fontSize = "24px";
+            let locationData = document.createElement("p");
+            let place = document.createElement("p");
+            let temperature = document.createElement("p");
+            let condition = document.createElement("p");
+
+            search.addEventListener('keyup', () => {
+                country = search.value.toLowerCase();       
+            });
+
+            search.addEventListener( 'enter', (event) =>{ 
+                try {
+                    async function getData() {
+                        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=fca6bcc1052a405cae5105939241803&q=${country}`, {mode:"cors"});
+                        const weather = await response.json();  
+                    
+                        place.innerText = "Country : " + weather.location.country;
+                        locationData.innerText = "Location : " + weather.location.name;
+                        condition.innerText = "Condition : " + weather.current.condition.text;
+                        temperature.innerText = "Temperature : " + weather.current.temp_c;
+                    
+                        console.log(weather.location.name);
+                    }
+                    
+                    getData();
+                } catch (error) {
+                    console.log("Error : ", error);
+                }
+            });
+
+            enter.addEventListener("click", () => {
+
+                try {
+                    async function getData() {
+                        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=fca6bcc1052a405cae5105939241803&q=${country}`, {mode:"cors"});
+                        const weather = await response.json();  
+                    
+                        place.innerText = "Country : " + weather.location.country;
+                        locationData.innerText = "Location : " + weather.location.name;
+                        condition.innerText = "Condition : " + weather.current.condition.text;
+                        temperature.innerText = "Temperature : " + weather.current.temp_c;
+                    
+                        console.log(weather.location.name);
+                    }
+                    
+                    getData();
+                } catch (error) {
+                    console.log("Error : ", error);
+                }
+                
+            });
+            
+            document.body.appendChild(search);
+            document.body.appendChild(enter);
+            weatherData.appendChild(place);
+            weatherData.appendChild(locationData);
+            weatherData.appendChild(temperature);
+            weatherData.appendChild(condition);
+            document.body.appendChild(weatherData);
+
+        </script>
+    </body>
+</html>
